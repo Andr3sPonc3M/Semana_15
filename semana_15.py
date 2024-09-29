@@ -4,29 +4,29 @@
 import tkinter as tk
 from tkinter import messagebox
 
-# Clase principal de la aplicación
+# Creación de la ventana principal
 class TaskManagerApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("Tareas UEA")  # Título de la ventana
+        self.root.title("Tareas UEA POO")  # Nombre de la ventana
 
-        # Campo de entrada para nuevas tareas
-        self.task_entry = tk.Entry(root, width=40)
+        # Campo para añadir tareas
+        self.task_entry = tk.Entry(root, width=45) # ancho de la barra
         self.task_entry.pack(pady=10)  # Espaciado vertical
 
-        # Botón para añadir tarea
-        self.add_task_button = tk.Button(root, text="Añadir Tarea", command=self.add_task)
+        # Botón para una nueva tarea
+        self.add_task_button = tk.Button(root, text="Nueva Tarea", command=self.add_task)
         self.add_task_button.pack(pady=5)
 
-        # Botón para marcar tarea como completada
-        self.complete_task_button = tk.Button(root, text="Marcar como Completada", command=self.complete_task)
+        # Botón para marcar tarea completada
+        self.complete_task_button = tk.Button(root, text="Tarea Completada", command=self.complete_task)
         self.complete_task_button.pack(pady=5)
 
         # Botón para eliminar tarea
         self.delete_task_button = tk.Button(root, text="Eliminar Tarea", command=self.delete_task)
         self.delete_task_button.pack(pady=5)
 
-        # Lista para mostrar las tareas
+        # Campo para mostrar las tareas
         self.task_listbox = tk.Listbox(root, width=50, height=10)
         self.task_listbox.pack(pady=10)
 
@@ -40,18 +40,18 @@ class TaskManagerApp:
             self.task_listbox.insert(tk.END, task)  # Añadir tarea a la lista
             self.task_entry.delete(0, tk.END)  # Limpiar el campo de entrada
         else:
-            messagebox.showwarning("Advertencia", "Por favor, primero ingrese una tarea.")  # Mensaje si está vacío
+            messagebox.showwarning("Advertencia", "Ingrese una tarea para comenzar.")  # Mensaje si el campo de traeas está vacío
 
     # Método para marcar tarea como completada
     def complete_task(self):
         try:
             selected_index = self.task_listbox.curselection()[0]  # Obtener el índice de la tarea seleccionada
             task = self.task_listbox.get(selected_index)  # Obtener la tarea seleccionada
-            completed_task = f"{task} (Completada)"  # Marcarla como completada visualmente
+            completed_task = f"{task} (Tarea Completada)"  # Marcarla como completada visualmente
             self.task_listbox.delete(selected_index)  # Eliminar la tarea original de la lista
             self.task_listbox.insert(selected_index, completed_task)  # Insertar la tarea completada en su lugar
         except IndexError:
-            messagebox.showwarning("Advertencia", "Por favor, seleccione una tarea para marcarla completada.")  # Mensaje si no hay selección
+            messagebox.showwarning("Advertencia", "Seleccione una tarea antes de marcarla como completada.")  # Mensaje si no hay selección
 
     # Método para eliminar tarea
     def delete_task(self):
@@ -59,9 +59,9 @@ class TaskManagerApp:
             selected_index = self.task_listbox.curselection()[0]  # Obtener el índice de la tarea seleccionada
             self.task_listbox.delete(selected_index)  # Eliminar la tarea seleccionada de la lista
         except IndexError:
-            messagebox.showwarning("Advertencia", "Por favor, seleccione una tarea para eliminarla.")  # Mensaje si no hay selección
+            messagebox.showwarning("Advertencia", "Primero seleccione una tarea para eliminarla.")  # Mensaje si no hay selección
 
-# Configuración y ejecución de la aplicación
+# Configuración y ejecución del programa
 if __name__ == "__main__":
     root = tk.Tk()  # Crear la ventana principal
     app = TaskManagerApp(root)  # Instanciar la clase principal
